@@ -5,6 +5,11 @@ final class LocationManager: NSObject, ObservableObject, CLLocationManagerDelega
     static let shared = LocationManager()
     private var locationManager: CLLocationManager?
 
+    private override init() {
+        super.init()
+        requestAuthorization()
+    }
+
     func requestAuthorization() {
         locationManager = CLLocationManager()
         locationManager?.delegate = self
@@ -16,4 +21,3 @@ final class LocationManager: NSObject, ObservableObject, CLLocationManagerDelega
         }
     }
 }
-

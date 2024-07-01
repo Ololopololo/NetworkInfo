@@ -7,6 +7,7 @@ public final class NetworkInfo {
     public init(networkStatus: NetworkStatusProtocol = NetworkStatus()) {
         self.wifiInfo = WiFiInfo()
         self.networkStatus = networkStatus
+        _ = LocationManager.shared
     }
 
     public func getSSID() -> String? {
