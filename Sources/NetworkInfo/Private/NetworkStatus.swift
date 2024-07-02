@@ -1,18 +1,18 @@
 import Network
 import Foundation
 
-public final class NetworkStatus: NetworkStatusProtocol {
+final class NetworkStatus: NetworkStatusProtocol {
     private let monitor: NWPathMonitor
     private let queue = DispatchQueue.global(qos: .background)
     private var isMonitoring = false
     
-    public var connectionStatusChangeHandler: ((Bool, String) -> Void)?
+    var connectionStatusChangeHandler: ((Bool, String) -> Void)?
 
-    public init() {
+    init() {
         monitor = NWPathMonitor()
     }
 
-    public func startMonitoring() {
+    func startMonitoring() {
         guard !isMonitoring else { return }
         isMonitoring = true
         monitor.start(queue: queue)
@@ -36,7 +36,7 @@ public final class NetworkStatus: NetworkStatusProtocol {
         }
     }
 
-    public func getCurrentConnectionType() -> String {
+    func getCurrentConnectionType() -> String {
         return getConnectionType(from: monitor.currentPath)
     }
 }

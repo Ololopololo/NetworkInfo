@@ -1,18 +1,10 @@
-import SystemConfiguration.CaptiveNetwork
 import Foundation
+import NetworkExtension
 
 final class WiFiInfo {
-    func getCurrentSSID() -> String? {
-        guard let interfaces = CNCopySupportedInterfaces() as? [String] else {
-            return nil
+    func fetchCurrentWithCompletionHandler(completion: @escaping (String?) -> Void) {
+        NEHotspotNetwork.fetchCurrent { network in
+            completion(network?.ssid)
         }
-        
-        for interface in interfaces {
-            if let interfaceInfo = CNCopyCurrentNetworkInfo(interface as CFString) as NSDictionary? {
-                return interfaceInfo[kCNNetworkInfoKeySSID as String] as? String
-            }
-        }
-        
-        return nil
     }
 }

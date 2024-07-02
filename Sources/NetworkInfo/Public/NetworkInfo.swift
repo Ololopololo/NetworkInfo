@@ -4,14 +4,19 @@ public final class NetworkInfo {
     private let wifiInfo: WiFiInfo
     private var networkStatus: NetworkStatusProtocol
 
-    public init(networkStatus: NetworkStatusProtocol = NetworkStatus()) {
+    private init(networkStatus: NetworkStatusProtocol) {
         self.wifiInfo = WiFiInfo()
         self.networkStatus = networkStatus
         _ = LocationManager.shared
     }
+    
+    public static func create() -> NetworkInfo {
+        let networkStatus = NetworkStatus()
+        return NetworkInfo(networkStatus: networkStatus)
+    }
 
-    public func getSSID() -> String? {
-        return wifiInfo.getCurrentSSID()
+    public func getSSID(completion: @escaping (String?) -> Void) {
+        wifiInfo.fetchCurrentWithCompletionHandler(completion: completion)
     }
 
     public func getCurrentConnectionType() -> String {
