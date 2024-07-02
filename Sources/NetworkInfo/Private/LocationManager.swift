@@ -13,7 +13,9 @@ final class LocationManager: NSObject, ObservableObject, CLLocationManagerDelega
     func requestAuthorization() {
         locationManager = CLLocationManager()
         locationManager?.delegate = self
+        locationManager?.desiredAccuracy = kCLLocationAccuracyKilometer
         locationManager?.requestWhenInUseAuthorization()
+        locationManager?.startUpdatingLocation()
     }
 
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
